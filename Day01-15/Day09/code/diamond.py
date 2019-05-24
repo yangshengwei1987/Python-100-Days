@@ -21,8 +21,7 @@ class B(A):
 
 class C(A):
 
-    def foo(self):
-        print('foo fo C')
+    pass
 
 
 class D(B, C):

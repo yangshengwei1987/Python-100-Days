@@ -28,7 +28,7 @@ class Point(object):
         dy = self._y - other._y
         return sqrt(dx ** 2 + dy ** 2)
 
-    def __str__(self):
+    def __str__(self):  # python 的 object tostring
         return '(%s, %s)' % (str(self._x), str(self._y))
 
 

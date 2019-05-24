@@ -13,9 +13,9 @@ class Car(object):
 
     __slots__ = ('_brand', '_max_speed')
 
-    def __init__(self, brand, max_speed):
-        self._brand = brand
-        self._max_speed = max_speed
+    def __init__(self, **kw): # 修改成可变参数 可以接受任意参数 实现了 '重载' (python中没有这个概念)
+        self._brand = kw['brand']
+        self._max_speed = kw['max_speed']
 
     @property
     def brand(self):
@@ -25,7 +25,7 @@ class Car(object):
     def brand(self, brand):
         self._brand = brand
 
-    @brand.deleter
+    @brand.deleter # 允许使用 del car.brand
     def brand(self):
         del self._brand
 
@@ -43,14 +43,15 @@ class Car(object):
         return 'Car: [品牌=%s, 最高时速=%d]' % (self._brand, self._max_speed)
 
 
-car = Car('QQ', 120)
+car = Car(brand='QQ', max_speed=120, carlog='audi') # 可以添加额外的参数 但由于init中没有将其封装如对象 所以这里对实例不会有影响
 print(car)
 # ValueError
 # car.max_speed = -100
 car.max_speed = 320
 car.brand = "Benz"
 # 使用__slots__属性限制后下面的代码将产生异常
-# car.current_speed = 80
+# car.current_speed = 80  
+# car.carlog = 'audi' 由于__slots__ 存在 这里会报错 
 print(car)
 # 如果提供了删除器可以执行下面的代码
 # del car.brand
